@@ -1,0 +1,60 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: #333;
+}
+
+#board {
+    display: inline-block;
+    margin: 20px auto;
+    background: #8B4513; /* Wooden board color */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hole {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    background-color: #000;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.hole.peg {
+    background-color: #FFD700; /* Gold peg */
+}
+
+.hole.empty {
+    background-color: transparent;
+    border: 2px dashed #555;
+}
+
+.hole.selected {
+    background-color: #FF6347; /* Highlight selected peg */
+}
+
+#moves {
+    margin: 10px;
+    font-size: 1.2em;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #45a049;
+}
