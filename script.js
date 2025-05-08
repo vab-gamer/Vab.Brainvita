@@ -6,11 +6,29 @@ let moveCount = 0;
 let selectedPeg = null;
 let boardState = [];
 
-// Initialize the board (Brainvita layout)
+// Initialize the board (Brainvita cross-shaped layout)
 function initBoard() {
-    boardState = Array(33).fill('peg'); // 0-32 positions
-    boardState[16] = 'empty'; // Center hole is empty
+    boardState = Array(33).fill('empty'); // Start all empty
+
+    // Fill pegs in valid positions (33-hole cross)
+    const pegPositions = [
+        0, 1, 2, 3, 4, 5, 6,
+        7, 8, 9, 10, 11, 12, 13,
+        14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26,
+        27, 28, 29, 30, 31, 32
+    ];
+
+    pegPositions.forEach(pos => {
+        boardState[pos] = 'peg';
+    });
+
+    // Center hole starts empty
+    boardState[16] = 'empty';
+
     renderBoard();
+    moveCount = 0;
+    moveCountDisplay.textContent = moveCount;
 }
 
 // Render the board UI
@@ -42,12 +60,20 @@ function handleClick(index) {
     }
 }
 
-// Check if a move is valid
+// Check if a move is valid (horizontal/vertical jumps only)
 function checkMove(from, to) {
-    const diff = Math.abs(from - to);
-    if (diff === 2 || diff === 14) { // Horizontal or vertical jump
+    const rowFrom = Math.floor(from / 7);
+    const colFrom = from % 7;
+    const rowTo = Math.floor(to / 7);
+    const colTo = to % 7;
+
+    // Must jump exactly 2 steps in a straight line
+    if (
+        (Math.abs(rowFrom - rowTo) === 2 && colFrom === colTo) || // Vertical
+        (Math.abs(colFrom - colTo) === 2 && rowFrom === rowTo)    // Horizontal
+    ) {
         const middle = (from + to) / 2;
-        return boardState[middle] === 'peg';
+        return boardState[middle] === 'peg'; // Must have a peg in between
     }
     return false;
 }
@@ -65,13 +91,13 @@ function executeMove(from, to) {
     checkWin();
 }
 
-// Check if the player wins
+// Check if the player wins (last peg in center)
 function checkWin() {
     const pegsLeft = boardState.filter(state => state === 'peg').length;
     if (pegsLeft === 1 && boardState[16] === 'peg') {
-        alert('You won in ' + moveCount + ' moves!');
+        alert(`🎉 You won in ${moveCount} moves!`);
     } else if (pegsLeft === 1) {
-        alert('Game over, but the last peg is not in the center!');
+        alert("Game over! Last peg is not in the center.");
     }
 }
 
