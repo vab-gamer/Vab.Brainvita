@@ -1,4 +1,3 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -44,15 +43,27 @@ header h1 span {
 
 #board {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(7, 50px);
+    grid-template-rows: repeat(7, 50px);
+    gap: 5px;
     margin: 20px auto;
     justify-content: center;
 }
 
+/* Hide the invalid holes to create cross shape */
+.hole:nth-child(1), .hole:nth-child(2), .hole:nth-child(3),
+.hole:nth-child(5), .hole:nth-child(6), .hole:nth-child(7),
+.hole:nth-child(8), .hole:nth-child(14),
+.hole:nth-child(36), .hole:nth-child(42),
+.hole:nth-child(43), .hole:nth-child(44), .hole:nth-child(45),
+.hole:nth-child(47), .hole:nth-child(48), .hole:nth-child(49) {
+    visibility: hidden;
+    pointer-events: none;
+}
+
 .hole {
-    width: 40px;
-    height: 40px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     background: #2c3e50;
     cursor: pointer;
@@ -107,21 +118,9 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Hide invalid holes (for cross-shaped board) */
-.hole:nth-child(1), .hole:nth-child(2), .hole:nth-child(3),
-.hole:nth-child(4), .hole:nth-child(5), .hole:nth-child(6),
-.hole:nth-child(7), .hole:nth-child(13), .hole:nth-child(21),
-.hole:nth-child(29), .hole:nth-child(35), .hole:nth-child(36),
-.hole:nth-child(37), .hole:nth-child(38), .hole:nth-child(39),
-.hole:nth-child(40), .hole:nth-child(41), .hole:nth-child(42) {
-    visibility: hidden;
-    pointer-events: none;
-}
-
-/* Mobile Responsiveness */
 @media (max-width: 500px) {
-    .hole {
-        width: 30px;
-        height: 30px;
+    #board {
+        grid-template-columns: repeat(7, 40px);
+        grid-template-rows: repeat(7, 40px);
     }
 }
