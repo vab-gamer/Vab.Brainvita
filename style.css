@@ -1,60 +1,127 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
-    background-color: #f0f0f0;
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-h1 {
+body {
+    font-family: 'Roboto', sans-serif;
+    background: #f5f5f5;
     color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+header h1 span {
+    color: #e74c3c;
+}
+
+.subtitle {
+    color: #7f8c8d;
+    margin-bottom: 20px;
 }
 
 #board {
-    display: inline-block;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
     margin: 20px auto;
-    background: #8B4513; /* Wooden board color */
-    padding: 20px;
-    border-radius: 10px;
+    justify-content: center;
 }
 
 .hole {
     width: 40px;
     height: 40px;
-    margin: 5px;
-    background-color: #000;
     border-radius: 50%;
-    display: inline-block;
+    background: #2c3e50;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
 .hole.peg {
-    background-color: #FFD700; /* Gold peg */
+    background: #e74c3c;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .hole.empty {
-    background-color: transparent;
-    border: 2px dashed #555;
+    background: #ecf0f1;
+    border: 2px dashed #bdc3c7;
 }
 
 .hole.selected {
-    background-color: #FF6347; /* Highlight selected peg */
+    background: #f39c12;
+    transform: scale(1.1);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
 }
 
 #moves {
-    margin: 10px;
-    font-size: 1.2em;
+    font-size: 1.2rem;
+    color: #2c3e50;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 1em;
-    background: #4CAF50;
+#reset {
+    background: #2c3e50;
     color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
 }
 
-button:hover {
-    background: #45a049;
+#reset:hover {
+    background: #e74c3c;
+}
+
+footer {
+    margin-top: 20px;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Hide invalid holes (for cross-shaped board) */
+.hole:nth-child(1), .hole:nth-child(2), .hole:nth-child(3),
+.hole:nth-child(4), .hole:nth-child(5), .hole:nth-child(6),
+.hole:nth-child(7), .hole:nth-child(13), .hole:nth-child(21),
+.hole:nth-child(29), .hole:nth-child(35), .hole:nth-child(36),
+.hole:nth-child(37), .hole:nth-child(38), .hole:nth-child(39),
+.hole:nth-child(40), .hole:nth-child(41), .hole:nth-child(42) {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 500px) {
+    .hole {
+        width: 30px;
+        height: 30px;
+    }
 }
