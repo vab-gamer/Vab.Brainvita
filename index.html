@@ -3,14 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brainvita (Peg Solitaire)</title>
+    <title>Vab.Brainvita - Peg Solitaire</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Brainvita (Peg Solitaire)</h1>
-    <div id="board"></div>
-    <div id="moves">Moves: <span id="move-count">0</span></div>
-    <button id="reset">Reset Game</button>
+    <div class="game-container">
+        <header>
+            <h1>Vab.<span>Brainvita</span></h1>
+            <p class="subtitle">The Classic Peg Solitaire Game</p>
+        </header>
+
+        <div id="board"></div>
+
+        <div class="game-info">
+            <div id="moves">Moves: <span id="move-count">0</span></div>
+            <button id="reset">Reset</button>
+        </div>
+
+        <footer>
+            <p>© 2024 Vab.Brainvita | Designed with ♥</p>
+        </footer>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
