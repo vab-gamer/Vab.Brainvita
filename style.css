@@ -1,29 +1,33 @@
 body {
   margin: 0;
-  padding: 20px;
   font-family: Arial, sans-serif;
-  background-color: #fff8dc;
+  background-color: #fffacd;
+  color: #000;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 h1 {
-  margin-bottom: 20px;
-  color: black;
+  margin-top: 20px;
+  font-size: 2.5em;
 }
 
 #board {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-gap: 5px;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 5px;
   width: 90vmin;
-  max-width: 500px;
-  margin: 0 auto 20px auto;
+  height: 90vmin;
+  margin: 20px auto;
 }
 
 .cell {
   width: 100%;
-  aspect-ratio: 1;
-  background-color: transparent;
+  height: 100%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,30 +36,94 @@ h1 {
 .peg {
   width: 60%;
   height: 60%;
-  background-color: black;
+  background-color: #000;
   border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .hole {
   width: 60%;
   height: 60%;
-  border: 2px solid black;
   border-radius: 50%;
+  border: 3px solid #000;
+  box-sizing: border-box;
 }
 
-.empty {
+.invalid {
   background-color: transparent;
+  pointer-events: none;
 }
 
 button {
+  background-color: #000;
+  color: #fffacd;
+  border: none;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 1em;
+  margin: 10px 5px;
   cursor: pointer;
-  margin-bottom: 20px;
+  border-radius: 8px;
 }
 
-footer {
-  margin-top: 30px;
+button:hover {
+  background-color: #444;
+}
+
+#info {
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+#footer {
+  margin-top: auto;
+  padding: 12px;
   font-size: 0.9em;
-  color: #555;
+  background-color: #000;
+  color: #fffacd;
+}
+
+#modal, #rulesModal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: #fffacd;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: #000;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+}
+
+.modal-content button {
+  margin-top: 20px;
+}
+
+#controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+#timer {
+  font-weight: bold;
+}
+
+#infoBtn {
+  font-size: 1.2em;
+  padding: 5px 12px;
 }
