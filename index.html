@@ -1,17 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vab.Brainvita</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Vab.Brainvita</h1>
-  <div id="board"></div>
-  <button id="resetBtn">Reset</button>
-  <footer>Made by Vab-Gamer | Sponsored by ~Ritikesh Singh</footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+  <header>
+    <h1>Vab.Brainvita</h1>
+    <button id="howToPlayBtn">i</button>
+  </header>  <main>
+    <div id="board"></div>
+    <div class="controls">
+      <button id="resetBtn">Reset</button>
+      <div id="timer">Time: 00:00</div>
+    </div>
+    <div id="pegCount"></div>
+    <div id="message"></div>
+  </main>  <footer>
+    Made by Vab-Gamer | Sponsored by ~Ritikesh Singh
+  </footer>  <div id="howToPlayModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>How to Play</h2>
+      <p>
+        The goal is to remove pegs by jumping one over another into an empty hole,
+        like in checkers. Jumps must be horizontal or vertical. The game ends when
+        no valid moves remain. Try to end with only one peg!
+      </p>
+    </div>
+  </div>  <script src="script.js"></script></body>
+  </html>
