@@ -4,13 +4,13 @@ const resetBtn = document.getElementById("resetBtn");
 let board = [];
 
 const template = [
-  [0, 0, 1, 1, 1, 0, 0],
-  [0, 0, 1, 1, 1, 0, 0],
+  [null, null, 1, 1, 1, null, null],
+  [null, null, 1, 1, 1, null, null],
   [1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 0, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1],
-  [0, 0, 1, 1, 1, 0, 0],
-  [0, 0, 1, 1, 1, 0, 0],
+  [null, null, 1, 1, 1, null, null],
+  [null, null, 1, 1, 1, null, null],
 ];
 
 function createBoard() {
