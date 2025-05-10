@@ -1,81 +1,40 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #fdf6e3;
   margin: 0;
-  padding: 20px;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
 }
 
 h1 {
-  margin-bottom: 10px;
-  font-size: 2em;
+  margin: 20px 0;
 }
 
-#board {
+.board {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-gap: 5px;
+  grid-template-columns: repeat(7, 48px);
   justify-content: center;
-  max-width: 420px;
-  margin: 20px auto;
+  gap: 4px;
+  margin: 0 auto;
 }
 
 .cell {
-  aspect-ratio: 1;
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+}
+
+.peg {
+  background-color: #3498db;
+  border-radius: 50%;
   width: 100%;
-  background-color: #ccc;
+  height: 100%;
+}
+
+.hole {
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  border: 2px dashed #666;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: transparent;
 }
-
-.marble {
-  background-color: #444;
-  width: 65%;
-  height: 65%;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.empty {
-  background-color: #fdf6e3;
-}
-
-.valid-move {
-  outline: 3px solid #4caf50;
-}
-
-#moves {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
-
-#resetBtn {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 15px;
-}
-
-footer {
-  margin-top: 30px;
-  font-size: 0.9em;
-  color: #555;
-}
-
-/* Mobile Tweaks */
-@media (max-width: 480px) {
-  #board {
-    max-width: 90vw;
-  }
-
-  .cell {
-    grid-gap: 4px;
-  }
-
-  #resetBtn {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-  }
