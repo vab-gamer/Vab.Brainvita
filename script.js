@@ -1,101 +1,74 @@
-const board = document.getElementById("board");
-const movesDisplay = document.getElementById("moves");
-let moveCount = 0;
-
-const layout = [
-  [null, null, 1, 1, 1, null, null],
-  [null, null, 1, 1, 1, null, null],
+const initialBoard = [
+  [2, 2, 1, 1, 1, 2, 2],
+  [2, 2, 1, 1, 1, 2, 2],
   [1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 0, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1],
-  [null, null, 1, 1, 1, null, null],
-  [null, null, 1, 1, 1, null, null],
+  [2, 2, 1, 1, 1, 2, 2],
+  [2, 2, 1, 1, 1, 2, 2],
 ];
 
-function createBoard() {
+let boardState = JSON.parse(JSON.stringify(initialBoard));
+let selected = null;
+
+function renderBoard() {
+  const board = document.getElementById("board");
   board.innerHTML = "";
-  for (let r = 0; r < 7; r++) {
-    for (let c = 0; c < 7; c++) {
+  for (let row = 0; row < boardState.length; row++) {
+    for (let col = 0; col < boardState[row].length; col++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
-      cell.dataset.row = r;
-      cell.dataset.col = c;
-      if (layout[r][c] === null) {
-        cell.style.visibility = "hidden";
-      } else if (layout[r][c] === 1) {
-        const marble = document.createElement("div");
-        marble.classList.add("marble");
-        marble.onclick = () => selectMarble(r, c);
-        cell.appendChild(marble);
+
+      if (boardState[row][col] === 1) {
+        cell.classList.add("peg");
+      } else if (boardState[row][col] === 0) {
+        cell.classList.add("hole");
       } else {
-        cell.classList.add("empty");
+        cell.style.visibility = "hidden";
       }
+
+      cell.dataset.row = row;
+      cell.dataset.col = col;
+      cell.onclick = () => handleClick(row, col);
       board.appendChild(cell);
     }
   }
 }
 
-let selected = null;
-
-function selectMarble(r, c) {
-  clearHighlights();
-  selected = { r, c };
-  const moves = getValidMoves(r, c);
-  for (const move of moves) {
-    const cell = document.querySelector(`.cell[data-row="${move.r}"][data-col="${move.c}"]`);
-    cell.classList.add("valid-move");
-    cell.onclick = () => makeMove(r, c, move.r, move.c);
-  }
-}
-
-function getValidMoves(r, c) {
-  const directions = [
-    { dr: -2, dc: 0 }, { dr: 2, dc: 0 },
-    { dr: 0, dc: -2 }, { dr: 0, dc: 2 }
-  ];
-  const moves = [];
-  for (const { dr, dc } of directions) {
-    const nr = r + dr;
-    const nc = c + dc;
-    const mr = r + dr / 2;
-    const mc = c + dc / 2;
-    if (
-      layout[nr]?.[nc] === 0 &&
-      layout[mr][mc] === 1
-    ) {
-      moves.push({ r: nr, c: nc, jumped: { r: mr, c: mc } });
+function handleClick(row, col) {
+  if (selected) {
+    const [sr, sc] = selected;
+    if (isValidMove(sr, sc, row, col)) {
+      makeMove(sr, sc, row, col);
     }
+    selected = null;
+  } else if (boardState[row][col] === 1) {
+    selected = [row, col];
   }
-  return moves;
+  renderBoard();
 }
 
-function makeMove(fromR, fromC, toR, toC) {
-  const jumped = {
-    r: (fromR + toR) / 2,
-    c: (fromC + toC) / 2
-  };
+function isValidMove(sr, sc, er, ec) {
+  const dr = er - sr;
+  const dc = ec - sc;
 
-  layout[fromR][fromC] = 0;
-  layout[jumped.r][jumped.c] = 0;
-  layout[toR][toC] = 1;
+  if (Math.abs(dr) === 2 && dc === 0) {
+    const mr = sr + dr / 2;
+    return boardState[er][ec] === 0 && boardState[mr][sc] === 1;
+  }
 
-  moveCount++;
-  movesDisplay.textContent = `Moves: ${moveCount}`;
-  selected = null;
-  clearHighlights();
-  createBoard();
+  if (Math.abs(dc) === 2 && dr === 0) {
+    const mc = sc + dc / 2;
+    return boardState[er][ec] === 0 && boardState[sr][mc] === 1;
+  }
+
+  return false;
 }
 
-function clearHighlights() {
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach(cell => {
-    cell.classList.remove("valid-move");
-    cell.onclick = null;
-  });
+function makeMove(sr, sc, er, ec) {
+  boardState[er][ec] = 1;
+  boardState[sr][sc] = 0;
+  boardState[(sr + er) / 2][(sc + ec) / 2] = 0;
 }
 
-document.getElementById("resetBtn").onclick = () => {
-  location.reload();
-};
-
-createBoard();
+renderBoard();
