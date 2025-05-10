@@ -1,4 +1,9 @@
-const boardLayout = [
+const boardElement = document.getElementById("board");
+const resetBtn = document.getElementById("resetBtn");
+
+let board = [];
+
+const template = [
   [0, 0, 1, 1, 1, 0, 0],
   [0, 0, 1, 1, 1, 0, 0],
   [1, 1, 1, 1, 1, 1, 1],
@@ -8,45 +13,34 @@ const boardLayout = [
   [0, 0, 1, 1, 1, 0, 0],
 ];
 
-let board = [];
-const gameBoard = document.getElementById("gameBoard");
-const resetBtn = document.getElementById("resetBtn");
-
 function createBoard() {
-  gameBoard.innerHTML = "";
-  board = JSON.parse(JSON.stringify(boardLayout));
+  board = template.map(row => [...row]);
+  renderBoard();
+}
 
-  for (let row = 0; row < 7; row++) {
-    for (let col = 0; col < 7; col++) {
+function renderBoard() {
+  boardElement.innerHTML = "";
+  for (let r = 0; r < 7; r++) {
+    for (let c = 0; c < 7; c++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
 
-      if (board[row][col] === 1) {
+      const val = board[r][c];
+      if (val === 1) {
         const peg = document.createElement("div");
         peg.classList.add("peg");
-        peg.dataset.row = row;
-        peg.dataset.col = col;
-        peg.onclick = () => handlePegClick(row, col);
         cell.appendChild(peg);
-      } else if (board[row][col] === 0 && isValidCell(row, col)) {
+      } else if (val === 0 && template[r][c] === 1) {
         const hole = document.createElement("div");
         hole.classList.add("hole");
         cell.appendChild(hole);
       }
 
-      gameBoard.appendChild(cell);
+      boardElement.appendChild(cell);
     }
   }
 }
 
-function isValidCell(row, col) {
-  return boardLayout[row][col] === 1;
-}
-
-function handlePegClick(row, col) {
-  // Placeholder logic for click
-  console.log(`Peg at ${row}, ${col} clicked`);
-}
-
 resetBtn.onclick = createBoard;
+
 createBoard();
