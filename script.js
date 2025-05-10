@@ -71,4 +71,10 @@ function makeMove(sr, sc, er, ec) {
   boardState[(sr + er) / 2][(sc + ec) / 2] = 0;
 }
 
+function resetGame() {
+  boardState = JSON.parse(JSON.stringify(initialBoard));
+  selected = null;
+  renderBoard();
+}
+
 renderBoard();
