@@ -11,8 +11,7 @@ const BOARDS = {
       [1,1,1,1,1,1,1],
       [0,0,1,1,1,0,0],
       [0,0,1,1,1,0,0]
-    ],
-    thumb: "https://i.imgur.com/9n1O9R2.png"
+    ]
   },
   'european': {
     name: 'European',
@@ -25,8 +24,7 @@ const BOARDS = {
       [1,1,1,1,1,1,1],
       [1,1,1,1,1,1,1],
       [0,1,1,1,1,1,0]
-    ],
-    thumb: "https://i.imgur.com/1hQZy3D.png"
+    ]
   },
   'diamond': {
     name: 'Diamond',
@@ -41,8 +39,7 @@ const BOARDS = {
       [0,0,1,1,1,1,1,0,0],
       [0,0,0,1,1,1,0,0,0],
       [0,0,0,0,1,0,0,0,0]
-    ],
-    thumb: "https://i.imgur.com/8cX6v7W.png"
+    ]
   },
   'triangle': {
     name: 'Triangle',
@@ -53,8 +50,7 @@ const BOARDS = {
       [0,0,1,1,1],
       [0,1,1,1,1],
       [2,1,1,1,1]
-    ],
-    thumb: "https://i.imgur.com/5VwA9nC.png"
+    ]
   }
 };
 // --- State ---
@@ -115,6 +111,32 @@ function resetTimer() {
   timerEl.textContent = `⏳ 00:00`;
 }
 // --- Board Selection ---
+function renderMiniBoard(boardDef) {
+  // Renders a small board for board select
+  const { grid } = boardDef;
+  const rows = grid.length, cols = grid[0].length;
+  const mini = document.createElement('div');
+  mini.className = 'board-mini';
+  mini.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+  mini.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      let dot;
+      if (grid[r][c] === 1) {
+        dot = document.createElement('span');
+        dot.className = 'peg-dot';
+      } else if (grid[r][c] === 2) {
+        dot = document.createElement('span');
+        dot.className = 'peg-empty-dot';
+      } else {
+        dot = document.createElement('span');
+        dot.className = 'peg-inactive-dot';
+      }
+      mini.appendChild(dot);
+    }
+  }
+  return mini;
+}
 function renderBoardSelect() {
   boardSelect.innerHTML = '';
   Object.entries(BOARDS).forEach(([key, val]) => {
@@ -124,10 +146,17 @@ function renderBoardSelect() {
     div.tabIndex = 0;
     div.setAttribute('role', 'button');
     div.setAttribute('aria-label', val.name);
-    const img = document.createElement('img');
-    img.src = val.thumb;
-    img.alt = val.name;
-    div.appendChild(img);
+
+    // Mini board
+    const mini = renderMiniBoard(val);
+    div.appendChild(mini);
+
+    // Label
+    const label = document.createElement('div');
+    label.className = 'board-thumb-label';
+    label.textContent = val.name;
+    div.appendChild(label);
+
     div.onclick = () => {
       if (currentBoardKey !== key) {
         currentBoardKey = key;
@@ -335,11 +364,59 @@ function loadHighScore() {
 }
 // --- Screenshot ---
 screenshotBtn.onclick = () => {
-  html2canvas(gameBoard, {backgroundColor: null}).then(canvas => {
+  // Create a temporary container with header, timer, peg count, and the board grid for screenshot
+  const temp = document.createElement('div');
+  temp.style.background = "#fffbe6";
+  temp.style.padding = "1.2rem";
+  temp.style.borderRadius = "18px";
+  temp.style.display = "inline-block";
+  temp.style.boxShadow = "0 2px 18px #ffd60044";
+  temp.style.textAlign = "center";
+  temp.style.fontFamily = "'Montserrat', Arial, sans-serif";
+
+  // Header
+  const header = document.createElement('div');
+  header.className = "board-header-for-screenshot";
+  const h1 = document.createElement('h1');
+  h1.textContent = "Vab.Brainvita";
+  header.appendChild(h1);
+
+  // Timer and Peg Count
+  const timerSpan = document.createElement('span');
+  timerSpan.className = "timer";
+  timerSpan.textContent = timerEl.textContent;
+  header.appendChild(timerSpan);
+
+  const pegCountSpan = document.createElement('span');
+  pegCountSpan.className = "peg-count";
+  pegCountSpan.textContent = pegCountEl.textContent;
+  header.appendChild(pegCountSpan);
+
+  temp.appendChild(header);
+
+  // Board grid (clone)
+  const boardGrid = gameBoard.querySelector('.board-grid');
+  if (boardGrid) {
+    const boardClone = boardGrid.cloneNode(true);
+
+    // Remove selection/animation classes for screenshot
+    boardClone.querySelectorAll('.peg-marble.selected').forEach(e => e.classList.remove('selected'));
+    boardClone.querySelectorAll('.peg-marble.animating').forEach(e => e.classList.remove('animating'));
+
+    temp.appendChild(boardClone);
+  }
+
+  // Add to body (off-screen)
+  temp.style.position = "absolute";
+  temp.style.left = "-9999px";
+  document.body.appendChild(temp);
+
+  html2canvas(temp, {backgroundColor: null}).then(canvas => {
     const link = document.createElement('a');
     link.download = `VabBrainvita_${BOARDS[currentBoardKey].name.replace(/\s+/g,'')}.png`;
     link.href = canvas.toDataURL();
     link.click();
+    document.body.removeChild(temp);
   });
 };
 // --- Button Events ---
@@ -355,4 +432,4 @@ window.onload = init;
 window.onbeforeunload = function() {
   localStorage.removeItem('bv_highscore');
 };
-    
+  
