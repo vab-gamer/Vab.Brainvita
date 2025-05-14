@@ -34,6 +34,7 @@ header {
   margin: 2rem 0 1rem 0;
   text-align: center;
 }
+
 .board-select {
   display: flex;
   justify-content: center;
@@ -42,28 +43,68 @@ header {
   flex-wrap: wrap;
 }
 .board-thumb {
-  border: 3px solid transparent;
+  border: 2px solid var(--accent);
   border-radius: 12px;
   background: var(--board-bg);
   cursor: pointer;
-  transition: border 0.2s;
-  width: 70px;
-  height: 70px;
+  transition: border 0.2s, box-shadow 0.2s;
+  width: 90px;
+  min-width: 90px;
+  min-height: 110px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   box-shadow: 0 2px 8px #ffd60044;
+  padding: 0.5rem 0.2rem 0.4rem 0.2rem;
   position: relative;
 }
 .board-thumb.selected {
   border: 3px solid var(--accent);
   box-shadow: 0 4px 16px #ffd60099;
 }
-.board-thumb img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  display: block;
+.board-mini {
+  margin: 0.3rem 0 0.4rem 0;
+  display: grid;
+  background: var(--main-bg);
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.board-mini .peg-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--peg);
+  margin: 1px;
+  display: inline-block;
+}
+.board-mini .peg-empty-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--empty);
+  border: 1px dashed #ffd600;
+  margin: 2px;
+  display: inline-block;
+}
+.board-mini .peg-inactive-dot {
+  width: 10px;
+  height: 10px;
+  background: none;
+  margin: 1px;
+  display: inline-block;
+}
+.board-thumb-label {
+  text-align: center;
+  font-size: 0.92rem;
+  color: #222;
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  word-break: break-word;
 }
 .game-area {
   display: flex;
@@ -86,6 +127,30 @@ header {
   min-height: 260px;
   transition: box-shadow 0.2s;
   position: relative;
+}
+.board-header-for-screenshot {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.7rem;
+}
+.board-header-for-screenshot h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 0.3rem 0;
+  color: #222;
+  letter-spacing: 1px;
+}
+.board-header-for-screenshot .timer,
+.board-header-for-screenshot .peg-count {
+  display: inline-block;
+  margin: 0 1.1rem 0 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #222;
+  background: #fffde7;
+  padding: 0.12rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ffd600;
 }
 .board-grid {
   display: grid;
@@ -216,34 +281,19 @@ header {
   font-size: 1.04rem;
   position: relative;
 }
-.howtoplay-section h2 {
+.howtoplay-heading {
   margin-top: 0;
   font-size: 1.3rem;
   color: #222;
   font-weight: 700;
   letter-spacing: 0.5px;
   margin-bottom: 0.6rem;
+  text-align: center;
 }
 .howtoplay-section ul {
   margin: 0.5rem 0 0.7rem 1.2rem;
   padding: 0;
   font-size: 1rem;
-}
-.howtoplay-imgs {
-  display: flex;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-  margin-top: 0.7rem;
-  justify-content: center;
-}
-.howtoplay-imgs img {
-  width: 70px;
-  height: 70px;
-  border-radius: 8px;
-  background: #fffbe6;
-  border: 1.5px solid #ffd600;
-  box-shadow: 0 1px 4px #ffd60055;
-  object-fit: contain;
 }
 .thankyou {
   text-align: center;
@@ -268,15 +318,15 @@ footer {
 @media (max-width: 600px) {
   header { font-size: 1.7rem; margin: 1.2rem 0 0.7rem 0; }
   .brainvita-board { padding: 0.5rem; min-width: 180px; min-height: 180px; }
-  .board-thumb { width: 52px; height: 52px; }
-  .board-thumb img { width: 36px; height: 36px; }
+  .board-thumb { width: 56px; min-width: 56px; min-height: 76px; }
+  .board-mini { gap: 0.5px; }
   .peg-cell { width: 24px; height: 24px; }
   .peg-marble { width: 20px; height: 20px; }
   .peg-empty { width: 12px; height: 12px; }
   .howtoplay-section { padding: 0.7rem 0.4rem 1.1rem 0.4rem; }
-  .howtoplay-imgs img { width: 40px; height: 40px; }
   .thankyou { font-size: 1rem; }
   .game-info { font-size: 1rem; gap: 1.1rem; }
   .btn { font-size: 0.97rem; padding: 0.4rem 0.7rem; }
-    }
+  .board-header-for-screenshot h1 { font-size: 1.1rem; }
+  }
   
