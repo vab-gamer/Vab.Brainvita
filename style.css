@@ -329,4 +329,43 @@ footer {
   .btn { font-size: 0.97rem; padding: 0.4rem 0.7rem; }
   .board-header-for-screenshot h1 { font-size: 1.1rem; }
   }
-  
+  /* Social Links Bar in Footer */
+.social-links {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 50%;
+  transition: background 0.2s, box-shadow 0.2s;
+  outline: none;
+  padding: 0.1rem;
+}
+.social-links a:focus-visible {
+  outline: 2px solid var(--accent);
+}
+.social-links .icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  background: none;
+  vertical-align: middle;
+  transition: filter 0.2s, transform 0.2s;
+  /* Ensures icons look crisp on all backgrounds */
+}
+.social-links a:hover .icon,
+.social-links a:focus .icon {
+  filter: drop-shadow(0 0 4px #ffd60088) brightness(1.2);
+  transform: scale(1.13);
+}
+@media (max-width: 600px) {
+  .social-links .icon { width: 22px; height: 22px; }
+  .social-links { gap: 0.25rem; }
+}
+
