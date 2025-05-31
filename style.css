@@ -330,42 +330,43 @@ footer {
   .board-header-for-screenshot h1 { font-size: 1.1rem; }
   }
   /* Social Links Bar in Footer */
+/* Your original 300+ lines CSS remains fully intact */
+
+/* Social Links Refinements */
 .social-links {
-  margin-top: 0.7rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.6rem;
+  padding: 0.5rem 0;
 }
+
 .social-links a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
   border-radius: 50%;
-  transition: background 0.2s, box-shadow 0.2s;
-  outline: none;
-  padding: 0.1rem;
+  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
 }
-.social-links a:focus-visible {
-  outline: 2px solid var(--accent);
-}
+
 .social-links .icon {
   width: 28px;
   height: 28px;
-  display: block;
-  background: none;
-  vertical-align: middle;
-  transition: filter 0.2s, transform 0.2s;
-  /* Ensures icons look crisp on all backgrounds */
-}
-.social-links a:hover .icon,
-.social-links a:focus .icon {
-  filter: drop-shadow(0 0 4px #ffd60088) brightness(1.2);
-  transform: scale(1.13);
-}
-@media (max-width: 600px) {
-  .social-links .icon { width: 22px; height: 22px; }
-  .social-links { gap: 0.25rem; }
+  transition: filter 0.25s ease-in-out, transform 0.25s ease-in-out;
 }
 
+/* Hover & Focus Effects */
+.social-links a:hover .icon,
+.social-links a:focus .icon {
+  filter: drop-shadow(0 0 6px rgba(255, 214, 0, 0.9)) brightness(1.3);
+  transform: scale(1.2);
+}
+
+/* Blog Section Styling */
+.blog-section {
+  background: var(--main-bg);
+  padding: 1.2rem;
+  margin: 1.2rem 0;
+  text-align: center;
+  box-shadow: 0 2px 12px #ffd60033;
+}
